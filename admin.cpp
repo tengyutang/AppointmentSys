@@ -1,4 +1,5 @@
 #include "admin.h"
+#include <algorithm>
 
 admin::admin()
 {
@@ -64,6 +65,7 @@ void admin::CreateAccount()
     {
         filename = ADMIN_FILE;
         tip = "请输入管理员帐号";
+        
     }
     else
     {
@@ -118,8 +120,46 @@ void admin::CreateAccount()
     ofs.close();
 }
 
+void printstudent(student &s)
+{
+
+    cout<<"学号"<<s.SID_<<" 姓名"<<s.Name_<<" 密码"<<s.Pwd_<<endl;
+}
+
+void printteacher(teacher &t)
+{
+
+    cout<<"工号"<<t.TID_<<" 姓名"<<t.Name_<<" 密码"<<t.Pwd_<<endl;
+}
+
 void admin::ShowAccount()
 {
+    cout<<"请选择查看内容："<<endl;
+    cout<<"1.查看所有学生："<<endl;
+    cout<<"2.查看所有老师"<<endl;
+    cout<<"3.查看所有管理员"<<endl;
+
+    int sel=0;
+    cin>>sel;
+
+    if (sel==1)
+    {
+        cout<<"所有学生信息如下："<<endl;
+        cout<<"-----------------------------------"<<endl;
+        for_each(vStu.begin(),vStu.end(),printstudent);
+        cout<<"-----------------------------------"<<endl;
+    }
+    else if (sel==2)
+    {
+        cout<<"所有老师信息如下："<<endl;
+        cout<<"-----------------------------------"<<endl;
+        for_each(vTea.begin(),vTea.end(),printteacher);
+        cout<<"-----------------------------------"<<endl;
+    }
+    system("pause");
+    system("cls");
+  
+        
 }
 
 void admin::ShowComputer()
