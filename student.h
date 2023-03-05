@@ -1,7 +1,11 @@
 #pragma once
 #include <string>
-#include <iostream>
+#include <fstream>
 #include "identity.h"
+#include <vector>
+#include "GlobalFile.h"
+#include "computer.h"
+#include <algorithm>
 using namespace std;
 
 class student:public Identity
@@ -24,4 +28,6 @@ class student:public Identity
     void CancelOrder();
 
     int SID_;
+
+    vector<computer> vRoom;
 };

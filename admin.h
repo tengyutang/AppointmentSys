@@ -7,6 +7,7 @@
 #include <vector>
 #include "student.h"
 #include "teacher.h"
+#include "computer.h"
 using namespace std;
 
 class admin : public Identity
@@ -25,6 +26,8 @@ public:
 
     void ShowComputer();
 
+    void AddRoom();
+
     void ClearOrder();
 
     void InitDatabase();
@@ -36,5 +39,6 @@ public:
     int AID_;
     vector<student> vStu;
     vector<teacher> vTea;
+    vector<computer> vRoom;
     
 };

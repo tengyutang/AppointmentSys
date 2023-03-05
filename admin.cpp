@@ -28,6 +28,8 @@ void admin::OperMenu()
     cout << "\t\t|                                |\n";
     cout << "\t\t|          4.清空预约            |\n";
     cout << "\t\t|                                |\n";
+    cout << "\t\t|          5.添加机房            |\n";
+    cout << "\t\t|                                |\n";
     cout << "\t\t|          0.注销登录            |\n";
     cout << "\t\t --------------------------------\n";
 
@@ -132,6 +134,12 @@ void printteacher(teacher &t)
     cout<<"工号"<<t.TID_<<" 姓名"<<t.Name_<<" 密码"<<t.Pwd_<<endl;
 }
 
+void printRoom(computer &r)
+{
+
+    cout<<"机房名"<<r.RoomId_<<" 容量"<<r.ComputerNum_<<endl;
+}
+
 void admin::ShowAccount()
 {
     cout<<"请选择查看内容："<<endl;
@@ -164,14 +172,31 @@ void admin::ShowAccount()
 
 void admin::ShowComputer()
 {
+    cout<<"所有机房信息如下："<<endl;
+    cout<<"-----------------------------------"<<endl;
+    for_each(vRoom.begin(),vRoom.end(),printRoom);
+    cout<<"-----------------------------------"<<endl;
+    system("pause");
+    system("cls");
 }
 
 void admin::ClearOrder()
-{
+{ 
+    ofstream ofs(ORDER_FILE,ios::trunc);
+    ofs.close();
+    //vOrder.clear();
+    cout<<"清空成功"<<endl;
+    system("pause");
+    system("cls");
+    
 }
 
 void admin::InitDatabase()
-{
+{   
+    vStu.clear();
+    vTea.clear();
+    vRoom.clear();
+    //读入学生数据
     ifstream ifs;
     ifs.open(STUDENT_FILE, ios::in);
     if (!ifs.is_open())
@@ -180,8 +205,7 @@ void admin::InitDatabase()
         return;
     }
 
-    vStu.clear();
-    vTea.clear();
+
 
     student s(0,"","");
     while (ifs >> s.SID_ && ifs >> s.Name_ && ifs >> s.Pwd_)
@@ -191,7 +215,7 @@ void admin::InitDatabase()
 
     cout << "当前学生数量为：" << vStu.size() << endl;
     ifs.close();
-
+    //读入老师数据
     ifs.open(TEACHER_FILE, ios::in);
 
     teacher t(0,"","");
@@ -200,6 +224,16 @@ void admin::InitDatabase()
         vTea.push_back(t);
     }
     cout << "当前老师数量为：" << vTea.size() << endl;
+    ifs.close();
+
+    ifs.open(COMPUTER_FILE, ios::in);
+    //读入机房数据
+    computer r(0,0);
+    while (ifs >> r.RoomId_&& ifs >> r.ComputerNum_)
+    {
+        vRoom.push_back(r);
+    }
+    cout << "当前机房数量为：" << vRoom.size() << endl;
     ifs.close();
 }
 
@@ -226,9 +260,53 @@ bool admin::Checkrepeat(int id, int type)
             }
         }
         break;
-           
+    case 4:
+        for (vector<computer>::iterator it = vRoom.begin(); it != vRoom.end(); it++)
+        {
+            if (id == it->RoomId_)
+            {
+                return true;
+            }
+        }
+        break;               
     default:
         break;
     }
     return false;
+}
+
+void admin::AddRoom()
+{
+    cout << "请输入加入的机房数量：" << endl;
+    int num=0;
+    cin>>num;
+    int roomid;
+    int volume;
+    ofstream ofs;
+    ofs.open(COMPUTER_FILE, ios::out | ios::app);
+
+    for (size_t i = 0; i < num; i++)
+    {
+        while (true)
+        {
+            cout<<"请输入机房名："<<endl;
+            cin>>roomid;
+            if (Checkrepeat(roomid,4))
+            {
+                cout<<"机房名重复，请重新输入："<<endl;
+            }
+            else
+            {
+                break;
+            }
+        }
+        cout<<"请输入机房容量："<<endl;
+        cin>>volume;
+        ofs << roomid << " " <<  volume<< endl;
+        cout << "添加成功！" << endl;
+        this->vRoom.push_back(computer (roomid,volume));
+    }
+    system("cls");
+    ofs.close();
+
 }

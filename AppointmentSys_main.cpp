@@ -36,6 +36,9 @@ void AdminMenu(Identity *&person)
         case 4:
             Man->ClearOrder();
             break;
+        case 5:
+            Man->AddRoom();
+            break;
         default:
             delete Man;
             cout << "注销成功" << endl;
@@ -70,6 +73,40 @@ void TeacherMenu(Identity *&person)
             delete Man;
             cout << "注销成功" << endl;
             return;
+        }
+        system("cls");
+    }
+}
+
+void StudentMenu(Identity *&person)
+{
+    while ((true))
+    {
+
+        person->OperMenu();
+        student *stu = (student *)person;
+
+        int select = 0;
+        cin >> select;
+
+        switch (select)
+        {
+            case 1:
+                stu->ApllyOrder();
+                break;
+            case 2:
+                stu->ShowMyOrder();
+                break;
+            case 3:
+                stu->ShowAllOrder();
+                break;
+            case 4:
+                stu->CancelOrder();
+                break;                        
+            default:
+                delete stu;
+                cout << "注销成功" << endl;
+                return;
         }
         system("cls");
     }
@@ -137,7 +174,7 @@ void login(string filename, int type)
                 system("cls");
                 Person = new student(id, name, pwd);
                 //进入学生界面
-
+                StudentMenu(Person);
                 return;
             }
         }
@@ -153,7 +190,7 @@ void login(string filename, int type)
                 system("cls");
                 Person = new teacher(id, name, pwd);
                 //进入教师界面
-
+                TeacherMenu(Person);
                 return;
             }
         }
@@ -199,7 +236,6 @@ void login(string filename, int type)
 
 int main()
 {
-
     while (1)
     {
         system("cls");
