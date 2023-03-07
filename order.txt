@@ -1,1 +1,5 @@
-data2 timeslot1 RoomId3 sutId1 sutNamezhangsan satus1
+data:1 timeslot:1 roomId:1 stuId:1 stuName:zhangsan status:1
+data:2 timeslot:2 roomId:2 stuId:1 stuName:zhangsan status:1
+data:3 timeslot:1 roomId:3 stuId:1 stuName:zhangsan status:1
+data:4 timeslot:1 roomId:3 stuId:1 stuName:zhangsan status:0
+data:5 timeslot:2 roomId:3 stuId:1 stuName:zhangsan status:0

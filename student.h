@@ -6,6 +6,8 @@
 #include "GlobalFile.h"
 #include "computer.h"
 #include <algorithm>
+#include "order.h"
+#include <stdlib.h>
 using namespace std;
 
 class student:public Identity
