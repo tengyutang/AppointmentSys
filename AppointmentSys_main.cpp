@@ -62,11 +62,11 @@ void TeacherMenu(Identity *&person)
 
         switch (select)
         {
-        case 1:
+        case 2:
             Man->CheckOrder();
 
             break;
-        case 2:
+        case 1:
             Man->ShowAllOrder();
             break;
         default:

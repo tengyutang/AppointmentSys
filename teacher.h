@@ -2,6 +2,12 @@
 #include <string>
 #include <iostream>
 #include "identity.h"
+#include "order.h"
+#include <vector>
+#include "GlobalFile.h"
+#include "computer.h"
+#include <algorithm>
+#include <stdlib.h>
 using namespace std;
 
 class teacher:public Identity
