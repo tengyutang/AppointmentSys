@@ -35,74 +35,77 @@ void teacher::CheckOrder()
         system("cls");
         return;
     }    
-    vector<int> v;
-    cout<<""<<endl;
-    int index=0;
-    for (size_t i = 0; i < od.size_; i++)
-    {
-        if (od.orderdata[i]["status"] == "1")
-        {
-            v.push_back(i);
-            cout << ++index << "、 ";
-            cout << " 预约日期： 周" << od.orderdata[i]["data"];
-            cout << " 时段： " << (od.orderdata[i]["timeslot"] == "1" ? "上午" : "下午");
-            cout << " 机房： " << od.orderdata[i]["roomId"];
-            cout << " 学号： " << od.orderdata[i]["stuId"];
-            cout << " 姓名： " << od.orderdata[i]["stuName"];
-            string status = "状态： ";
-            if (od.orderdata[i]["status"] == "1")
-            {
-                status += "审核中";
-            }
-            else if (od.orderdata[i]["status"] == "2")
-            {
-                status += "预约成功！";
-            }
-            else if (od.orderdata[i]["status"] == "-1")
-            {
-                status += "申请驳回！";
-            }
-            else
-            {
-                status += "预约取消！";
-            }
-            cout << status << endl;
-        }
-    }
-    cout<<"请输入审核的预约记录，0代表返回"<<endl;
-    int sel;
-    int ret=0;
+
     while (true)
     {
-        cin>>sel;
-        if (sel>=0 && sel<=v.size())
+        vector<int> v;
+        cout<<"目前待审核申请如下："<<endl;
+        int index=0;
+        for (size_t i = 0; i < od.size_; i++)
         {
-            if (sel==0)
+            if (od.orderdata[i]["status"] == "1")
             {
-                break;
-            }
-            else
-            {
-                cout<<"请输入审核结果"<<endl;
-                cout<<"1. 通过"<<endl;
-                cout<<"2. 不通过"<<endl;
-                cin>>ret;
-                if (ret==1)
+                v.push_back(i);
+                cout << ++index << "、 ";
+                cout << " 预约日期： 周" << od.orderdata[i]["data"];
+                cout << " 时段： " << (od.orderdata[i]["timeslot"] == "1" ? "上午" : "下午");
+                cout << " 机房： " << od.orderdata[i]["roomId"];
+                cout << " 学号： " << od.orderdata[i]["stuId"];
+                cout << " 姓名： " << od.orderdata[i]["stuName"];
+                string status = "状态： ";
+                if (od.orderdata[i]["status"] == "1")
                 {
-                    od.orderdata[v[sel-1]]["status"]="2";
+                    status += "审核中";
+                }
+                else if (od.orderdata[i]["status"] == "2")
+                {
+                    status += "预约成功！";
+                }
+                else if (od.orderdata[i]["status"] == "-1")
+                {
+                    status += "申请驳回！";
                 }
                 else
                 {
-                    od.orderdata[v[sel-1]]["status"]="-1";
+                    status += "预约取消！";
                 }
-                od.updateorder();
-                cout<<"审核完毕"<<endl;
+                cout << status << endl;
             }
         }
-        
-    }
+            cout<<"请输入审核的预约记录，0代表返回"<<endl;
+            int sel;
+            int ret=0;
+
+
+            cin>>sel;
+            if (sel>=0 && sel<=v.size())
+            {
+                if (sel==0)
+                {
+                    break;
+                }
+                else
+                {
+                    cout<<"请输入审核结果"<<endl;
+                    cout<<"1. 通过"<<endl;
+                    cout<<"2. 不通过"<<endl;
+                    cin>>ret;
+                    if (ret==1)
+                    {
+                        od.orderdata[v[sel-1]]["status"]="2";
+                    }
+                    else
+                    {
+                        od.orderdata[v[sel-1]]["status"]="-1";
+                    }
+                    od.updateorder();
+                    cout<<"审核完毕"<<endl;
+                }
+            }
         system("pause");
-        system("cls");
+        system("cls");    
+    }
+
 }
 
 
